@@ -1,0 +1,70 @@
+server:
+  #adminMinThreads: 1
+  #adminMaxThreads: 64
+  applicationConnectors:
+    - type: http
+      port: 8080
+    #- type: https
+    #  port: 8443
+    #  keyStorePath: example.keystore
+    #  keyStorePassword: example
+    #  validateCerts: false
+  adminConnectors:
+    - type: http
+      port: 8081
+    #- type: https
+    #  port: 8444
+    #  keyStorePath: example.keystore
+    #  keyStorePassword: example
+    #  validateCerts: false
+  requestLog:
+     timeZone: IST
+     appenders:
+       - type: file
+         currentLogFilename: /var/log/adarsh/card/card-game/requests.log
+         archive: true
+         archivedLogFilenamePattern: /var/log/adarsh/card/card-game/requests.log.%d{yyyy-MM-dd}
+         archivedFileCount: 50
+
+logging:
+  level: INFO
+  appenders:
+    - type: console
+    - type: file
+      threshold: ALL
+      timeZone: IST
+      logFormat: "%date %level [%thread] %logger{0} [%X{id}] %msg%n"
+      currentLogFilename: /var/log/adarsh/card/card-game/card-game.log
+      archive: true
+      archivedLogFilenamePattern: /var/log/adarsh/card/card-game/card-game.log.%d{yyyy-MM-dd}
+      archivedFileCount: 20
+
+database:
+  # the name of your JDBC driver
+  driverClass: com.mysql.jdbc.Driver
+  # the username
+  user: root
+  # the password
+  password:
+  # the JDBC URL
+  url: jdbc:mysql://localhost/card_game
+  # any properties specific to your JDBC driver:
+  properties:
+   charSet: UTF-8
+   hibernate.show_sql: false
+   hibernate.hbm2ddl.auto: validate
+   hibernate.session.events.log: false
+
+  # the maximum amount of time to wait on an empty pool before throwing an exception
+  maxWaitForConnection: 1s
+  # the SQL query to run when validating a connection's liveness
+  validationQuery: "/* MyApplication Health Check */ SELECT 1"
+  # the minimum number of connections to keep open
+  minSize: 8
+
+  # the maximum number of connections to keep open
+  maxSize: 128
+  # whether or not idle connections should be validated
+  checkConnectionWhileIdle: false
+  checkConnectionOnBorrow: true
+  maxConnectionAge : 10s
