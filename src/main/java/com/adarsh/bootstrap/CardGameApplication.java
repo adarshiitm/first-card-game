@@ -4,6 +4,7 @@ import com.adarsh.config.CardGameConfiguration;
 import com.adarsh.filters.RequestFilter;
 import com.adarsh.filters.ResponseFilter;
 import com.adarsh.resources.CardGameResource;
+import com.adarsh.resources.SocketResource;
 import com.adarsh.utils.GuiceInjector;
 import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
@@ -54,10 +55,7 @@ public class CardGameApplication extends Application<CardGameConfiguration> {
 
         environment.lifecycle().manage(injector.getInstance(CardGameManage.class));
         environment.jersey().register(injector.getInstance(CardGameResource.class));
-//        environment.jersey().register(injector.getInstance(WSResource.class));
-//        environment.jersey().register(injector.getInstance(CallBackResource.class));
-//        environment.jersey().register(injector.getInstance(AgentMgrCallEventResource.class));
-//        environment.jersey().register(injector.getInstance(RMQResource.class));
+        environment.jersey().register(injector.getInstance(SocketResource.class));
 
 //        CoreRotationManagementTask managementTask = new CoreRotationManagementTask(config.getRotationManagementConfig());
 //        environment.admin().addTask(managementTask);

@@ -3,7 +3,7 @@ server:
   #adminMaxThreads: 64
   applicationConnectors:
     - type: http
-      port: 8080
+      port: 27000
     #- type: https
     #  port: 8443
     #  keyStorePath: example.keystore
@@ -11,7 +11,7 @@ server:
     #  validateCerts: false
   adminConnectors:
     - type: http
-      port: 8081
+      port: 27001
     #- type: https
     #  port: 8444
     #  keyStorePath: example.keystore
