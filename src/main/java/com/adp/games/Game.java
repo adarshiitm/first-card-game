@@ -34,8 +34,8 @@ public abstract class Game {
         gameData.setPlayerCount(numberOfPlayers);
         gameData.setGameType(gameType);
         this.deck = CardUtils.getDeckForGame(gameType);
-        this.players = new HashSet<>();
-        this.playerToCardHand = new HashMap<>();
+        this.players = new HashSet<String>();
+        this.playerToCardHand = new HashMap<String, CardHand>();
     }
 
     public GameData getGameData() {

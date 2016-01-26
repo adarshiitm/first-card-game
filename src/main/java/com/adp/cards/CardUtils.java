@@ -20,7 +20,7 @@ public class CardUtils {
     private static List<CardNumber> allNumbers = CardNumber.getAllNumbers();
 
     static {
-        allCards = new HashSet<>();
+        allCards = new HashSet<Card>();
         for (CardSuite cardSuite : allSuites) {
             for (CardNumber cardNumber : allNumbers) {
                 allCards.add(new Card(cardNumber, cardSuite));
@@ -33,7 +33,7 @@ public class CardUtils {
     }
 
     public static CardHand getDeckForGame(GameType gameType) throws ApiException {
-        Set<Card> deck = new HashSet<>();
+        Set<Card> deck = new HashSet<Card>();
 
         switch (gameType) {
             case TEEN_DO_PAANCH: {

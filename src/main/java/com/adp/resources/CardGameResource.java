@@ -6,10 +6,10 @@ import com.adp.models.GameType;
 import com.adp.service.GameService;
 import com.adp.utils.GuiceInjector;
 import com.adp.utils.exceptions.ApiException;
-import com.codahale.metrics.annotation.ExceptionMetered;
-import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
-import io.dropwizard.hibernate.UnitOfWork;
+import com.yammer.dropwizard.hibernate.UnitOfWork;
+import com.yammer.metrics.annotation.ExceptionMetered;
+import com.yammer.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

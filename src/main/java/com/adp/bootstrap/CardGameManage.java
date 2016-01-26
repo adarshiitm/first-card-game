@@ -2,7 +2,7 @@ package com.adp.bootstrap;
 
 import com.adp.config.CardGameConfiguration;
 import com.google.inject.Inject;
-import io.dropwizard.lifecycle.Managed;
+import com.yammer.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -32,7 +32,7 @@ public enum CardNumber {
     static Map<String, CardNumber> displayNameToCardNumberMap;
 
     static {
-        displayNameToCardNumberMap = new HashMap<>();
+        displayNameToCardNumberMap = new HashMap<String, CardNumber>();
         for(CardNumber cardNumber: CardNumber.values()){
             displayNameToCardNumberMap.put(cardNumber.displayName, cardNumber);
         }
@@ -43,7 +43,7 @@ public enum CardNumber {
     }
 
     public static List<CardNumber> getAllNumbers(){
-        List<CardNumber> allNumbers = new ArrayList<>(EnumSet.allOf(CardNumber.class));
+        List<CardNumber> allNumbers = new ArrayList<CardNumber>(EnumSet.allOf(CardNumber.class));
         allNumbers.remove(NO_VALUE);
         allNumbers.remove(FOLDED);
         allNumbers.remove(JOKER_1);
@@ -52,7 +52,7 @@ public enum CardNumber {
     }
 
     public static String[] getAllNumberNames(){
-        List<CardNumber> allNumbers = new ArrayList<>(EnumSet.allOf(CardNumber.class));
+        List<CardNumber> allNumbers = new ArrayList<CardNumber>(EnumSet.allOf(CardNumber.class));
         allNumbers.remove(NO_VALUE);
         String[] allNumberNames = new String[allNumbers.size()];
         for(int i=0;i<allNumbers.size();i++){

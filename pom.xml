@@ -9,8 +9,8 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <dropwizard.version>0.8.2</dropwizard.version>
-        <java.version>1.8</java.version>
+        <dropwizard.version>0.6.2</dropwizard.version>
+        <java.version>1.6</java.version>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -31,17 +31,17 @@
             <version>18.0</version>
         </dependency>
         <dependency>
-            <groupId>io.dropwizard</groupId>
+            <groupId>com.yammer.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.dropwizard</groupId>-->
+            <!--<artifactId>dropwizard-db</artifactId>-->
+            <!--<version>${dropwizard.version}</version>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-db</artifactId>
-            <version>${dropwizard.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.dropwizard</groupId>
+            <groupId>com.yammer.dropwizard</groupId>
             <artifactId>dropwizard-hibernate</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
@@ -66,12 +66,12 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>io.dropwizard</groupId>
-            <artifactId>dropwizard-testing</artifactId>
-            <version>${dropwizard.version}</version>
-            <scope>test</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>io.dropwizard</groupId>-->
+            <!--<artifactId>dropwizard-testing</artifactId>-->
+            <!--<version>${dropwizard.version}</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
@@ -107,6 +107,26 @@
             <groupId>org.atmosphere</groupId>
             <artifactId>atmosphere-annotations</artifactId>
             <version>${atmosphere-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>8.1.10.v20130312</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>8.1.10.v20130312</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-websocket</artifactId>
+            <version>8.1.10.v20130312</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>9.0.7.v20131107</version>
         </dependency>
 
     </dependencies>

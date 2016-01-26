@@ -23,7 +23,7 @@ public class GameService {
     private GameFactory gameFactory;
 
     public GameService() {
-        this.gameIdToGameMap = new HashMap<>();
+        this.gameIdToGameMap = new HashMap<String, Game>();
     }
 
     public GameData startGame(GameType gameType, String playerId) throws ApiException {

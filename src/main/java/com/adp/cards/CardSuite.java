@@ -25,7 +25,7 @@ public enum CardSuite {
     }
 
     public static List<CardSuite> getAllSuites(){
-        List<CardSuite> allSuites = new ArrayList<>(EnumSet.allOf(CardSuite.class));
+        List<CardSuite> allSuites = new ArrayList<CardSuite>(EnumSet.allOf(CardSuite.class));
         allSuites.remove(NO_SUITE);
         return allSuites;
     }
