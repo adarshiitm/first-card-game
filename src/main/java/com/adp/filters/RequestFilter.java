@@ -3,12 +3,13 @@ package com.adp.filters;
 import com.adp.utils.GuiceInjector;
 import com.adp.utils.Machine;
 import com.google.inject.Inject;
-import org.glassfish.jersey.message.internal.ReaderWriter;
-import org.glassfish.jersey.server.ContainerException;
+import com.sun.jersey.api.container.ContainerException;
+import com.sun.jersey.core.util.ReaderWriter;
+import com.sun.jersey.spi.container.ContainerRequest;
+import com.sun.jersey.spi.container.ContainerRequestFilter;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,6 +20,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.UUID;
 
+//import org.glassfish.jersey.message.internal.ReaderWriter;
+//import org.glassfish.jersey.server.ContainerException;
+//import javax.ws.rs.container.ContainerRequestContext;
+//import javax.ws.rs.container.ContainerRequestFilter;
+
 /**
  * Created by adarsh.sharma on 23/01/16.
  */
@@ -28,16 +34,43 @@ public class RequestFilter  implements ContainerRequestFilter {
 
     @Inject
     Machine machine;
+    final private static Logger logger = LoggerFactory.getLogger(ContainerRequestFilter.class);
 
     public RequestFilter() {
         GuiceInjector.getInjector().injectMembers(this);
     }
 
-    final private static org.slf4j.Logger logger = LoggerFactory.getLogger(ContainerRequestFilter.class);
+    @Override
+    public ContainerRequest filter(ContainerRequest containerRequest) {
+        setUidForRequest(containerRequest);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        InputStream in = containerRequest.getEntityInputStream();
 
-    private void setUidForRequest(ContainerRequestContext containerRequestContext) {
+        try {
+            ReaderWriter.writeTo(in, out);
 
-        String transId = containerRequestContext.getHeaders().getFirst("TransactionId");
+            byte[] requestEntity = out.toByteArray();
+            logger.info("{} | {} | Request body: {}", containerRequest.getMethod(), containerRequest.getRequestUri(), out);
+
+            MultivaluedMap<String, String> requestHeaders = containerRequest.getRequestHeaders();
+            logger.debug("Request Headers: ");
+            for(MultivaluedMap.Entry entry : requestHeaders.entrySet()) {
+                logger.debug("key: " + entry.getKey() + " " + "value: " + entry.getValue());
+            }
+
+            containerRequest.setEntityInputStream(new ByteArrayInputStream(requestEntity));
+            logger.info("Filtering the request is done");
+            return containerRequest;
+            //}
+        } catch (IOException ex) {
+            throw new ContainerException(ex);
+        }
+    }
+
+
+    private void setUidForRequest(ContainerRequest containerRequest) {
+
+        String transId = containerRequest.getRequestHeaders().getFirst("TransactionId");
 
         DateFormat dateFormat = new SimpleDateFormat("MM-dd-HH-mm-ss-SSS");
         Calendar cal = Calendar.getInstance();
@@ -51,29 +84,29 @@ public class RequestFilter  implements ContainerRequestFilter {
         logger.info("TransactionId Generated : " + uId);
     }
 
-    @Override
-    public void filter(ContainerRequestContext containerRequestContext) throws IOException {
-        setUidForRequest(containerRequestContext);
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        InputStream in = containerRequestContext.getEntityStream();;
-
-        try {
-            ReaderWriter.writeTo(in, out);
-
-            byte[] requestEntity = out.toByteArray();
-            logger.info("{} | {} | Request body: {}", containerRequestContext.getMethod(), containerRequestContext.getUriInfo(), out);
-
-            MultivaluedMap<String, String> requestHeaders = containerRequestContext.getHeaders();
-            logger.debug("Request Headers: ");
-            for(MultivaluedMap.Entry entry : requestHeaders.entrySet()) {
-                logger.debug("key: " + entry.getKey() + " " + "value: " + entry.getValue());
-            }
-
-            containerRequestContext.setEntityStream(new ByteArrayInputStream(requestEntity));
-            logger.info("Filtering the request is done");
-            //}
-        } catch (IOException ex) {
-            throw new ContainerException(ex);
-        }
-    }
+//    @Override
+//    public void filter(ContainerRequestContext containerRequestContext) throws IOException {
+//        setUidForRequest(containerRequestContext);
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        InputStream in = containerRequestContext.getEntityStream();;
+//
+//        try {
+//            ReaderWriter.writeTo(in, out);
+//
+//            byte[] requestEntity = out.toByteArray();
+//            logger.info("{} | {} | Request body: {}", containerRequestContext.getMethod(), containerRequestContext.getUriInfo(), out);
+//
+//            MultivaluedMap<String, String> requestHeaders = containerRequestContext.getHeaders();
+//            logger.debug("Request Headers: ");
+//            for(MultivaluedMap.Entry entry : requestHeaders.entrySet()) {
+//                logger.debug("key: " + entry.getKey() + " " + "value: " + entry.getValue());
+//            }
+//
+//            containerRequestContext.setEntityStream(new ByteArrayInputStream(requestEntity));
+//            logger.info("Filtering the request is done");
+//            //}
+//        } catch (IOException ex) {
+//            throw new ContainerException(ex);
+//        }
+//    }
 }
