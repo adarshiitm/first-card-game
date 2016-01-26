@@ -1,10 +1,10 @@
 package com.adp.resources;
 
 import com.adp.sockets.SocketManager;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.atmosphere.cache.UUIDBroadcasterCache;
 import org.atmosphere.client.TrackMessageSizeInterceptor;
 import org.atmosphere.config.service.AtmosphereHandlerService;
+import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.AtmosphereResponse;
 import org.atmosphere.handler.OnMessage;
 import org.atmosphere.interceptor.AtmosphereResourceLifecycleInterceptor;
@@ -28,12 +28,17 @@ import java.io.IOException;
                 HeartbeatInterceptor.class
         })
 public class ChatService extends OnMessage<String> {
-    private final ObjectMapper mapper = new ObjectMapper();
     private static final Logger logger = LoggerFactory.getLogger(ChatService.class);
 
     @Override
     public void onMessage(AtmosphereResponse response, String message) throws IOException {
         logger.info("got message: {}", message);
-        SocketManager.addSocket(response);
     }
+
+    @Override
+    public void onOpen(AtmosphereResource resource) throws IOException {
+        logger.info("onOpen: got {}", resource.uuid());
+        SocketManager.addSocket(resource);
+    }
+
 }
