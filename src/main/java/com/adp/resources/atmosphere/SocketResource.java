@@ -1,6 +1,6 @@
-package com.adarsh.resources;
+package com.adp.resources.atmosphere;
 
-import com.adarsh.utils.GuiceInjector;
+import com.adp.utils.GuiceInjector;
 import org.atmosphere.annotation.Resume;
 import org.atmosphere.config.service.Disconnect;
 import org.atmosphere.config.service.ManagedService;

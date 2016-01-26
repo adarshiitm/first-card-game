@@ -1,6 +1,6 @@
-package com.adarsh.bootstrap;
+package com.adp.bootstrap;
 
-import com.adarsh.config.CardGameConfiguration;
+import com.adp.config.CardGameConfiguration;
 import com.codahale.metrics.MetricRegistry;
 import com.google.inject.AbstractModule;
 import io.dropwizard.hibernate.HibernateBundle;

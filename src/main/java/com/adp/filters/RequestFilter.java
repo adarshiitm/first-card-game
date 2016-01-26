@@ -1,7 +1,7 @@
-package com.adarsh.filters;
+package com.adp.filters;
 
-import com.adarsh.utils.GuiceInjector;
-import com.adarsh.utils.Machine;
+import com.adp.utils.GuiceInjector;
+import com.adp.utils.Machine;
 import com.google.inject.Inject;
 import org.glassfish.jersey.message.internal.ReaderWriter;
 import org.glassfish.jersey.server.ContainerException;

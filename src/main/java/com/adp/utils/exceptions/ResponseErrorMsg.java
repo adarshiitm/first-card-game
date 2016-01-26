@@ -1,4 +1,4 @@
-package com.adarsh.utils.exceptions;
+package com.adp.utils.exceptions;
 
 /**
  * Created by sanjay.rajput on 09/04/15.

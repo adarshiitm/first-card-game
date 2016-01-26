@@ -1,4 +1,4 @@
-package com.adarsh.config;
+package com.adp.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;

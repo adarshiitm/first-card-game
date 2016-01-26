@@ -1,4 +1,4 @@
-package com.adarsh.utils.exceptions;
+package com.adp.utils.exceptions;
 
 import javax.ws.rs.core.Response;
 

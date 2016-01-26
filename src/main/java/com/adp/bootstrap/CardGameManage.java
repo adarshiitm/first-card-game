@@ -1,6 +1,6 @@
-package com.adarsh.bootstrap;
+package com.adp.bootstrap;
 
-import com.adarsh.config.CardGameConfiguration;
+import com.adp.config.CardGameConfiguration;
 import com.google.inject.Inject;
 import io.dropwizard.lifecycle.Managed;
 import org.slf4j.Logger;

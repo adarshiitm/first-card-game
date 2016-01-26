@@ -14,6 +14,7 @@
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <atmosphere-version>2.2.0</atmosphere-version>
     </properties>
 
     <repositories>
@@ -89,7 +90,7 @@
         <dependency>
             <groupId>org.atmosphere</groupId>
             <artifactId>atmosphere-jersey</artifactId>
-            <version>2.2.0</version>
+            <version>${atmosphere-version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.sun.jersey</groupId>
@@ -97,6 +98,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+            <version>${atmosphere-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-annotations</artifactId>
+            <version>${atmosphere-version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -1,4 +1,4 @@
-package com.adarsh.utils;
+package com.adp.utils;
 
 import com.google.inject.Injector;
 

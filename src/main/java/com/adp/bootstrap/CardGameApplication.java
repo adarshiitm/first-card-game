@@ -1,11 +1,11 @@
-package com.adarsh.bootstrap;
+package com.adp.bootstrap;
 
-import com.adarsh.config.CardGameConfiguration;
-import com.adarsh.filters.RequestFilter;
-import com.adarsh.filters.ResponseFilter;
-import com.adarsh.resources.CardGameResource;
-import com.adarsh.resources.SocketResource;
-import com.adarsh.utils.GuiceInjector;
+import com.adp.config.CardGameConfiguration;
+import com.adp.filters.RequestFilter;
+import com.adp.filters.ResponseFilter;
+import com.adp.resources.CardGameResource;
+import com.adp.resources.atmosphere.SocketResource;
+import com.adp.utils.GuiceInjector;
 import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
 import com.google.inject.Guice;
@@ -64,7 +64,24 @@ public class CardGameApplication extends Application<CardGameConfiguration> {
         environment.jersey().register(injector.getInstance(RequestFilter.class));
         environment.jersey().register(injector.getInstance(ResponseFilter.class));
 
+//        initializeAtmosphere(environment);
+
         JmxReporter.forRegistry(environment.metrics()).build().start();
         JmxReporter.forRegistry(metricRegistry).build().start();
     }
+
+//    void initializeAtmosphere(Environment environment) {
+//
+//        FilterBuilder config = environment.addFilter(CrossOriginFilter.class, "/socket");
+//        config.setInitParam(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
+//        FilterBuilder config
+//
+//        AtmosphereServlet atmosphereServlet = new AtmosphereServlet();
+//        atmosphereServlet.framework().addInitParameter("com.sun.jersey.config.property.packages", "com.adp.resources.atmosphere");
+//        atmosphereServlet.framework().addInitParameter("org.atmosphere.websocket.messageContentType", "application/json");
+//        atmosphereServlet.framework().addInitParameter("org.atmosphere.websocket.maxIdleTime", "120000");
+//        atmosphereServlet.framework().addInitParameter("org.atmosphere.interceptor.HeartbeatInterceptor.heartbeatFrequencyInSeconds", "60");
+//        atmosphereServlet.framework().addInitParameter("org.atmosphere.cpr.AsyncSupport.maxInactiveActivity", "120000");
+//        environment.getApplicationContext().addServlet("org.atmosphere.cpr.AtmosphereServlet", "/socket/*");
+//    }
 }
