@@ -77,6 +77,7 @@ public class CardGameApplication extends Application<CardGameConfiguration> {
         servlet.framework().addInitParameter("com.sun.jersey.config.property.packages", "dk.cooldev.chatroom.resources.websocket");
         servlet.framework().addInitParameter(ApplicationConfig.WEBSOCKET_CONTENT_TYPE, "application/json");
         servlet.framework().addInitParameter(ApplicationConfig.WEBSOCKET_SUPPORT, "true");
+        servlet.framework().addInitParameter(ApplicationConfig.MAX_INACTIVE, "120000");
 
         ServletRegistration.Dynamic servletHolder = environment.servlets().addServlet("Chat", servlet);
         servletHolder.addMapping("/chat/*");

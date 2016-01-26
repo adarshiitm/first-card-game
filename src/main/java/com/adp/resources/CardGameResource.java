@@ -4,6 +4,7 @@ import com.adp.cards.CardHand;
 import com.adp.models.GameData;
 import com.adp.models.GameType;
 import com.adp.service.GameService;
+import com.adp.sockets.SocketManager;
 import com.adp.utils.GuiceInjector;
 import com.adp.utils.exceptions.ApiException;
 import com.codahale.metrics.annotation.ExceptionMetered;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 
 /**
  * Created by adarsh.sharma on 23/01/16.
@@ -72,13 +74,18 @@ public class CardGameResource {
 
 
     @GET
-    @Path("/test")
+    @Path("/test/{msg}")
     @Produces(MediaType.APPLICATION_JSON)
     @UnitOfWork
     @Timed
     @ExceptionMetered
-    public Response test() {
-        return Response.ok().entity("success").build();
+    public Response test(@PathParam("msg") String msg) {
+        try {
+            SocketManager.sendMessage(msg);
+            return Response.ok().entity("success").build();
+        } catch (IOException e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("failed").build();
+        }
     }
 }
 

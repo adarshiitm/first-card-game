@@ -1,5 +1,6 @@
 package com.adp.resources;
 
+import com.adp.sockets.SocketManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.atmosphere.cache.UUIDBroadcasterCache;
 import org.atmosphere.client.TrackMessageSizeInterceptor;
@@ -9,7 +10,6 @@ import org.atmosphere.handler.OnMessage;
 import org.atmosphere.interceptor.AtmosphereResourceLifecycleInterceptor;
 import org.atmosphere.interceptor.BroadcastOnPostAtmosphereInterceptor;
 import org.atmosphere.interceptor.HeartbeatInterceptor;
-import org.eclipse.jetty.server.Authentication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +34,6 @@ public class ChatService extends OnMessage<String> {
     @Override
     public void onMessage(AtmosphereResponse response, String message) throws IOException {
         logger.info("got message: {}", message);
-        response.write(mapper.writeValueAsString(mapper.readValue(message, Authentication.User.class)));
+        SocketManager.addSocket(response);
     }
 }

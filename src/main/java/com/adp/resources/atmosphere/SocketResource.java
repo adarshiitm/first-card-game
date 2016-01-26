@@ -4,6 +4,7 @@ import com.adp.utils.GuiceInjector;
 import org.atmosphere.annotation.Resume;
 import org.atmosphere.config.service.Disconnect;
 import org.atmosphere.config.service.ManagedService;
+import org.atmosphere.config.service.Message;
 import org.atmosphere.config.service.Ready;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.AtmosphereResourceEvent;
@@ -81,7 +82,7 @@ public class SocketResource {
 //        detachAgent(uuid);
     }
 
-    @org.atmosphere.config.service.Message()
+    @Message
     public void onMessage(String rawMessage) throws IOException {
 
         logger.info(rawMessage + " was just sent.");
