@@ -42,7 +42,7 @@ public enum CardNumber {
         this.displayName = displayName;
     }
 
-    public static List<CardNumber> getAllNumbers(){
+    public static List<CardNumber> getAllValidNumbers(){
         List<CardNumber> allNumbers = new ArrayList<>(EnumSet.allOf(CardNumber.class));
         allNumbers.remove(NO_VALUE);
         allNumbers.remove(FOLDED);

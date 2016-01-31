@@ -3,7 +3,7 @@ package com.adp.bootstrap;
 import com.adp.config.CardGameConfiguration;
 import com.adp.filters.RequestFilter;
 import com.adp.filters.ResponseFilter;
-import com.adp.resources.CardGameResource;
+import com.adp.resources.CardGameTestResource;
 import com.adp.utils.GuiceInjector;
 import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
@@ -56,7 +56,7 @@ public class CardGameApplication extends Application<CardGameConfiguration> {
         GuiceInjector.assignInjector(injector);
 
         environment.lifecycle().manage(injector.getInstance(CardGameManage.class));
-        environment.jersey().register(injector.getInstance(CardGameResource.class));
+        environment.jersey().register(injector.getInstance(CardGameTestResource.class));
 
 //        CoreRotationManagementTask managementTask = new CoreRotationManagementTask(config.getRotationManagementConfig());
 //        environment.admin().addTask(managementTask);

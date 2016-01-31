@@ -15,21 +15,21 @@ import java.util.Set;
  */
 @Singleton
 public class CardUtils {
-    private static Set<Card> allCards;
-    private static List<CardSuite> allSuites = CardSuite.getAllSuites();
-    private static List<CardNumber> allNumbers = CardNumber.getAllNumbers();
+    private static Set<Card> allValidCards;
+    private static List<CardSuite> allSuites = CardSuite.getAllValidSuites();
+    private static List<CardNumber> allNumbers = CardNumber.getAllValidNumbers();
 
     static {
-        allCards = new HashSet<>();
+        allValidCards = new HashSet<>();
         for (CardSuite cardSuite : allSuites) {
             for (CardNumber cardNumber : allNumbers) {
-                allCards.add(new Card(cardNumber, cardSuite));
+                allValidCards.add(new Card(cardNumber, cardSuite));
             }
         }
     }
 
-    public static CardHand getAllCards() {
-        return new CardHand(allCards);
+    public static CardHand getAllValidCards() {
+        return new CardHand(allValidCards);
     }
 
     public static CardHand getDeckForGame(GameType gameType) throws ApiException {

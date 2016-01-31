@@ -4,8 +4,8 @@ package com.adp.cards;
  * Created by adarsh.sharma on 23/01/16.
  */
 public class Card {
-    CardNumber cardNumber;
-    CardSuite cardSuite;
+    private CardNumber cardNumber;
+    private CardSuite cardSuite;
     static Card foldedCard;
     static Card JokerCard;
 

@@ -1,6 +1,6 @@
 package com.adp.cards;
 
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by adarsh.sharma on 24/01/16.
@@ -32,5 +32,19 @@ public class CardHand {
         if(isCardPresent(card)){
             deck.remove(card);
         }
+    }
+
+    public Map<CardSuite, List<Card>> getCardHands() {
+        Map<CardSuite, List<Card>> cardMap = new HashMap<>();
+
+        for(CardSuite cardSuite: CardSuite.getAllSuites()) {
+            cardMap.put(cardSuite, new ArrayList<Card>());
+        }
+
+        for(Card card: deck){
+            List<Card> cardNumbers = cardMap.get(card.getCardSuite());
+            cardNumbers.add(card);
+        }
+        return cardMap;
     }
 }

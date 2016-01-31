@@ -1,6 +1,9 @@
-package com.adp.resources;
+package com.adp.sockets.service;
 
-import com.adp.sockets.SocketManager;
+import com.adp.sockets.handler.SocketMessageHandlerFactory;
+import com.adp.sockets.utils.SocketManager;
+import com.adp.utils.GuiceInjector;
+import com.adp.utils.exceptions.ApiException;
 import org.atmosphere.cache.UUIDBroadcasterCache;
 import org.atmosphere.client.TrackMessageSizeInterceptor;
 import org.atmosphere.config.service.AtmosphereHandlerService;
@@ -27,18 +30,34 @@ import java.io.IOException;
                 TrackMessageSizeInterceptor.class,
                 HeartbeatInterceptor.class
         })
-public class ChatService extends OnMessage<String> {
-    private static final Logger logger = LoggerFactory.getLogger(ChatService.class);
+public class GameSocketService extends OnMessage<String> {
+    private SocketManager socketManager;
+    private static final Logger logger = LoggerFactory.getLogger(GameSocketService.class);
+
+    public GameSocketService() {
+        this.socketManager = GuiceInjector.getInjector().getInstance(SocketManager.class);
+    }
 
     @Override
-    public void onMessage(AtmosphereResponse response, String message) throws IOException {
+    public void onMessage(AtmosphereResponse response, String message) {
         logger.info("got message: {}", message);
+        try {
+            SocketMessageHandlerFactory.handleMessage(response.uuid(), message);
+        } catch (ApiException e) {
+            logger.error("onMessage to deserialize the data {}", message);
+        }
     }
 
     @Override
     public void onOpen(AtmosphereResource resource) throws IOException {
         logger.info("onOpen: got {}", resource.uuid());
-        SocketManager.addSocket(resource);
+        socketManager.addSocket(resource);
+    }
+
+    @Override
+    public void onDisconnect(AtmosphereResponse response) throws IOException {
+        logger.info("onOpen: got {}", response.uuid());
+        socketManager.removeSocket(response.uuid());
     }
 
 }

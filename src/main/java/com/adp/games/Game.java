@@ -3,12 +3,12 @@ package com.adp.games;
 import com.adp.cards.Card;
 import com.adp.cards.CardHand;
 import com.adp.cards.CardUtils;
-import com.adp.models.GameData;
 import com.adp.models.GameType;
+import com.adp.players.Player;
+import com.adp.utils.GuiceInjector;
 import com.adp.utils.UidGenerator;
 import com.adp.utils.exceptions.ApiException;
 import com.adp.utils.exceptions.ResponseErrorMsg;
-import com.google.inject.Inject;
 
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
@@ -20,30 +20,51 @@ import java.util.Set;
  * Created by adarsh.sharma on 24/01/16.
  */
 public abstract class Game {
-    protected GameData gameData;
+    protected String gameId;
+    private GameType gameType;
+    private Integer totalPlayerCount;
     protected CardHand deck;
-    protected Set<String> players;
+    protected Set<Player> players;
     protected Map<String, CardHand> playerToCardHand;
 
-    @Inject
     private UidGenerator uidGenerator;
 
+    public Game() {
+        this.uidGenerator = GuiceInjector.getInjector().getInstance(UidGenerator.class);
+    }
+
     public Game(Integer numberOfPlayers, GameType gameType) throws ApiException {
-        this.gameData = new GameData();
-        gameData.setGameId(uidGenerator.generateUid());
-        gameData.setPlayerCount(numberOfPlayers);
-        gameData.setGameType(gameType);
+        this();
+        this.gameId = uidGenerator.generateUid();
+        this.gameType = gameType;
+        this.totalPlayerCount = numberOfPlayers;
         this.deck = CardUtils.getDeckForGame(gameType);
         this.players = new HashSet<>();
         this.playerToCardHand = new HashMap<>();
     }
 
-    public GameData getGameData() {
-        return gameData;
+    public String getGameId() {
+        return gameId;
     }
 
-    public void setGameData(GameData gameData) {
-        this.gameData = gameData;
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
+    }
+
+    public GameType getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(GameType gameType) {
+        this.gameType = gameType;
+    }
+
+    public Integer getTotalPlayerCount() {
+        return totalPlayerCount;
+    }
+
+    public void setTotalPlayerCount(Integer totalPlayerCount) {
+        this.totalPlayerCount = totalPlayerCount;
     }
 
     public CardHand getDeck() {
@@ -54,16 +75,16 @@ public abstract class Game {
         this.deck = deck;
     }
 
-    public Set<String> getPlayers() {
+    public Set<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(Set<String> players) {
+    public void setPlayers(Set<Player> players) {
         this.players = players;
     }
 
-    public void addPlayer(String playerId) {
-        players.add(playerId);
+    public void addPlayer(Player player) {
+        players.add(player);
     }
 
     public Map<String, CardHand> getPlayerToCardHand() {

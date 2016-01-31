@@ -24,15 +24,18 @@ public enum CardSuite {
         return cardColor;
     }
 
-    public static List<CardSuite> getAllSuites(){
+    public static List<CardSuite> getAllValidSuites(){
         List<CardSuite> allSuites = new ArrayList<>(EnumSet.allOf(CardSuite.class));
         allSuites.remove(NO_SUITE);
         return allSuites;
     }
 
+    public static List<CardSuite> getAllSuites(){
+        return new ArrayList<>(EnumSet.allOf(CardSuite.class));
+    }
+
     public static String[] getAllSuiteNames(){
         List<CardSuite> allSuites = getAllSuites();
-        allSuites.add(NO_SUITE);
         String[] allSuiteNames = new String[allSuites.size()];
         for(int i=0;i<allSuites.size();i++){
             allSuiteNames[i] = allSuites.get(i).name();

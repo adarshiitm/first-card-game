@@ -1,27 +1,15 @@
 package com.adp.resources.atmosphere;
 
-import com.adp.utils.GuiceInjector;
-import org.atmosphere.annotation.Resume;
-import org.atmosphere.config.service.Disconnect;
 import org.atmosphere.config.service.ManagedService;
-import org.atmosphere.config.service.Message;
-import org.atmosphere.config.service.Ready;
-import org.atmosphere.cpr.AtmosphereResource;
-import org.atmosphere.cpr.AtmosphereResourceEvent;
-import org.atmosphere.websocket.WebSocketEventListenerAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
 
 /**
  * Created by adarsh.sharma on 23/01/16.
  */
 
 @ManagedService(path = "/socket")
-public class SocketResource {
+public class SocketResourceNotUsed {
 
-    final private static Logger logger = LoggerFactory.getLogger(SocketResource.class);
+//    final private static Logger logger = LoggerFactory.getLogger(SocketResource.class);
 
 //    @Inject
 //    Machine machine;
@@ -35,9 +23,9 @@ public class SocketResource {
 //    @Inject
 //    private SessionFactory sessionFactory;
 
-    public SocketResource() {
-        GuiceInjector.getInjector().injectMembers(this);
-    }
+//    public SocketResource() {
+//        GuiceInjector.getInjector().injectMembers(this);
+//    }
 
 //
 //    @Heartbeat
@@ -45,47 +33,47 @@ public class SocketResource {
 //        logger.info("Heartbeat send by {}", event.getResource());
 //    }
 
-    @Resume
-    public void onResume(final AtmosphereResource r) {
-        logger.info("Browser resumed.", r.uuid());
-    }
+//    @Resume
+//    public void onResume(final AtmosphereResource r) {
+//        logger.info("Browser resumed.", r.uuid());
+//    }
 
-    @Ready
-    public void onReady(final AtmosphereResource r) {
+//    @Ready
+//    public void onReady(final AtmosphereResource r) {
+//
+//        String agentID = r.getRequest().getParameter("agent");
+//        String clientID = r.getRequest().getParameter("clientID");
+//
+//        logger.info("onReady: Agent:" +  agentID + " Client-id: " + clientID + " uuid: " + r.uuid());
+//
+//        assert agentID != null;
+////        attachAgent(agentID, clientID, r);
 
-        String agentID = r.getRequest().getParameter("agent");
-        String clientID = r.getRequest().getParameter("clientID");
+//        AppCloseEventListener appCloseEventListener = new AppCloseEventListener();
+//        r.addEventListener(appCloseEventListener);
+//    }
 
-        logger.info("onReady: Agent:" +  agentID + " Client-id: " + clientID + " uuid: " + r.uuid());
+//    @Disconnect
+//    public void onDisconnect(AtmosphereResourceEvent event) {
+//
+//        logger.info("onDisconnect: Connection closed");
+//        String uuid = event.getResource().uuid();
+//
+//        if (event.isCancelled()) {
+//            logger.info("onDisconnect: Browser unexpectedly disconnected ", uuid);
+//        } else if (event.isClosedByClient()) {
+//            logger.info("onDisconnect: Browser closed the connection ", uuid);
+//        } else   {
+//            logger.info("onDisconnect: Unknown Disconnect Event " + uuid );
+//        }
 
-        assert agentID != null;
-//        attachAgent(agentID, clientID, r);
+////        detachAgent(uuid);
+//    }
 
-        AppCloseEventListener appCloseEventListener = new AppCloseEventListener();
-        r.addEventListener(appCloseEventListener);
-    }
-
-    @Disconnect
-    public void onDisconnect(AtmosphereResourceEvent event) {
-
-        logger.info("onDisconnect: Connection closed");
-        String uuid = event.getResource().uuid();
-
-        if (event.isCancelled()) {
-            logger.info("onDisconnect: Browser unexpectedly disconnected ", uuid);
-        } else if (event.isClosedByClient()) {
-            logger.info("onDisconnect: Browser closed the connection ", uuid);
-        } else   {
-            logger.info("onDisconnect: Unknown Disconnect Event " + uuid );
-        }
-
-//        detachAgent(uuid);
-    }
-
-    @Message
-    public void onMessage(String rawMessage) throws IOException {
-
-        logger.info(rawMessage + " was just sent.");
+//    @Message
+//    public void onMessage(String rawMessage) throws IOException {
+//
+//        logger.info(rawMessage + " was just sent.");
 
 //        ObjectMapper objectMapper = new ObjectMapper();
 //        ClientMessage message = objectMapper.readValue(rawMessage, ClientMessage.class);
@@ -187,16 +175,16 @@ public class SocketResource {
 //            logger.error("handleClientMessage: Unspecified event from client");
 //        }
         //return Response.ok(responseStr).build();
-        return;
-    }
+//        return;
+//    }
 
-    private class AppCloseEventListener extends WebSocketEventListenerAdapter {
-
-        @Override
-        public void onClose(WebSocketEvent event) {
-            logger.info("Happy !! {}", event);
-        }
-    }
+//    private class AppCloseEventListener extends WebSocketEventListenerAdapter {
+//
+//        @Override
+//        public void onClose(WebSocketEvent event) {
+//            logger.info("Happy !! {}", event);
+//        }
+//    }
 
 //    public void decreaseSocketCount(String host) {
 //
